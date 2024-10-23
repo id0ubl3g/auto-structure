@@ -214,65 +214,65 @@ class CreateStructure:
                     file.write('')
 
     def create_virtualenv(self):
-            sleep(2)
-            temp_dir = tempfile.mkdtemp()
-            virtualenv_path = os.path.join(self.new_directory_path, '.venv')
+        sleep(2)
+        temp_dir = tempfile.mkdtemp()
+        virtualenv_path = os.path.join(self.new_directory_path, '.venv')
 
-            try:
-                subprocess.run(["python3.12", "-m", "venv", os.path.join(temp_dir, "test_env")], check=True)
+        try:
+            subprocess.run(["python3.12", "-m", "venv", os.path.join(temp_dir, "test_env")], check=True)
 
-            except subprocess.CalledProcessError:
-                clear_screen()
-                print_welcome_message()
+        except subprocess.CalledProcessError:
+            clear_screen()
+            print_welcome_message()
 
-                while True: 
+            while True: 
+                sleep(0.5)
+                print_venv_not_installed()
+                choice_install = str(input(f'{CYAN}\n[$] {RESET}')).lower()
+                sleep(1)
+
+                if choice_install == 'y':
+                    run_sudo()
                     sleep(0.5)
-                    print_venv_not_installed()
-                    choice_install = str(input(f'{CYAN}\n[$] {RESET}')).lower()
-                    sleep(1)
+                    clear_screen()
+                    print_welcome_message()
 
-                    if choice_install == 'y':
-                        run_sudo()
-                        sleep(0.5)
-                        clear_screen()
-                        print_welcome_message()
+                    signal.signal(signal.SIGINT, signal.SIG_IGN)
+                    disable_input()
 
-                        signal.signal(signal.SIGINT, signal.SIG_IGN)
-                        disable_input()
+                    loading_thread = threading.Thread(target=download_bar)
+                    loading_thread.start()
 
-                        loading_thread = threading.Thread(target=download_bar)
-                        loading_thread.start()
-                        
-                        subprocess.run(["sudo", "apt", "install", "python3.12-venv", "-y"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)                   
+                    subprocess.run(["sudo", "apt", "install", "python3.12-venv", "-y"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)                   
 
-                        loading_thread.join()
-                        shutil.rmtree(temp_dir)
-                        
-                        signal.signal(signal.SIGINT, signal.default_int_handler)
-                        enable_input()
+                    loading_thread.join()
+                    shutil.rmtree(temp_dir)
 
-                        break
+                    signal.signal(signal.SIGINT, signal.default_int_handler)
+                    enable_input()
 
-                    elif choice_install == 'n':
-                        sleep(0.5)
-                        clear_screen()
-                        print_welcome_message()
-                        print_venv_information()
-                        sys.exit(1)
+                    break
 
-                    else:
-                        sleep(0.5)
-                        clear_screen()
-                        print_welcome_message()
-                        print_invalid_value(choice_install)
-                
-                venv.create(virtualenv_path, with_pip=True)
-                clear_screen()
-                print_welcome_message()
-                print_create_environment(virtualenv_path)
-                sleep(2)
+                elif choice_install == 'n':
+                    sleep(0.5)
+                    clear_screen()
+                    print_welcome_message()
+                    print_venv_information()
+                    sys.exit(1)
 
-                return
+                else:
+                    sleep(0.5)
+                    clear_screen()
+                    print_welcome_message()
+                    print_invalid_value(choice_install)
+
+        venv.create(virtualenv_path, with_pip=True)
+        clear_screen()
+        print_welcome_message()
+        print_create_environment(virtualenv_path)
+        sleep(2)
+
+        return
 
     def execute(self):
         try:
