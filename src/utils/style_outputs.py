@@ -100,8 +100,6 @@ def loading_animation():
         
     print(f'\r\t{CYAN}Loading complete!{RESET}')
 
-loading_animation()
-
 def print_directory_removed(directory_path):
     print(f'\n{RED}[x]{RESET} Directory removed at: {WHITE}{directory_path}{RESET} due to interruption.')
 

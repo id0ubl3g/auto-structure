@@ -273,3 +273,47 @@ class CreateStructure:
                 sleep(2)
 
                 return
+
+    def execute(self):
+        try:
+            args = parse_arguments()
+            if not args.project_name:
+                clear_screen()
+                print_welcome_message()
+                sys.exit(1)
+
+            self.project_name = args.project_name
+            clear_screen()
+            print_welcome_message()
+
+            self.check_directory_exists(self.project_name)
+            self.create_root_directory()
+            self.pull_structure()
+            self.create_subdirectories()
+            self.create_files(self.project_name)
+            self.create_virtualenv()
+
+            clear_screen()
+            print_welcome_message()
+            loading_animation()
+
+            clear_screen()
+            print_welcome_message()
+
+            sleep(1)
+            print_success_message(self.new_directory_path)
+        
+        except KeyboardInterrupt:
+            sleep(0.5)
+            clear_screen()
+            print_welcome_message()
+            print_interrupted_message()
+            
+            if self.new_directory_path:
+                self.remove_directory()
+                print_directory_removed(self.new_directory_path)
+
+            sys.exit(1)
+
+        except Exception:
+            sys.exit(1)
