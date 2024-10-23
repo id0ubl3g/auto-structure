@@ -1,10 +1,16 @@
 from src.utils.style_outputs import *
 from src.utils.system_utils import *
+from src.utils.sudo_auth import *
 from config.structures import *
 from config.licenses import *
 
 from time import sleep
+import subprocess
+import threading
+import tempfile
 import shutil
+import signal
+import venv
 import sys
 import os
 
@@ -206,3 +212,64 @@ class CreateStructure:
             else:
                 with open(create_file, 'w') as file:
                     file.write('')
+
+    def create_virtualenv(self):
+            sleep(2)
+            temp_dir = tempfile.mkdtemp()
+            virtualenv_path = os.path.join(self.new_directory_path, '.venv')
+
+            try:
+                subprocess.run(["python3.12", "-m", "venv", os.path.join(temp_dir, "test_env")], check=True)
+
+            except subprocess.CalledProcessError:
+                clear_screen()
+                print_welcome_message()
+
+                while True: 
+                    sleep(0.5)
+                    print_venv_not_installed()
+                    choice_install = str(input(f'{CYAN}\n[$] {RESET}')).lower()
+                    sleep(1)
+
+                    if choice_install == 'y':
+                        run_sudo()
+                        sleep(0.5)
+                        clear_screen()
+                        print_welcome_message()
+
+                        signal.signal(signal.SIGINT, signal.SIG_IGN)
+                        disable_input()
+
+                        loading_thread = threading.Thread(target=download_bar)
+                        loading_thread.start()
+                        
+                        subprocess.run(["sudo", "apt", "install", "python3.12-venv", "-y"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)                   
+
+                        loading_thread.join()
+                        shutil.rmtree(temp_dir)
+                        
+                        signal.signal(signal.SIGINT, signal.default_int_handler)
+                        enable_input()
+
+                        break
+
+                    elif choice_install == 'n':
+                        sleep(0.5)
+                        clear_screen()
+                        print_welcome_message()
+                        print_venv_information()
+                        sys.exit(1)
+
+                    else:
+                        sleep(0.5)
+                        clear_screen()
+                        print_welcome_message()
+                        print_invalid_value(choice_install)
+                
+                venv.create(virtualenv_path, with_pip=True)
+                clear_screen()
+                print_welcome_message()
+                print_create_environment(virtualenv_path)
+                sleep(2)
+
+                return
