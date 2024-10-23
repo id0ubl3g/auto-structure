@@ -45,7 +45,7 @@ class CreateStructure:
                 return
             
             print_directory_exists(self.new_directory_path)
-            sys.exit(1)
+            sys.exit(0)
             
         except KeyboardInterrupt:
             sleep(0.5)
@@ -79,47 +79,40 @@ class CreateStructure:
                     print_welcome_message()
                     print_invalid_value(choice_structure)
 
-            except Exception:
+            except ValueError:
                         sleep(0.5)
                         clear_screen()
                         print_welcome_message()
                         print_invalid_value(choice_structure)
 
     def pull_structure(self):
-        try:
-            sleep(0.5)
-            choice_structure = self.choice_structure()
-            match choice_structure:
-                case 1:
-                    sleep(2)
-                    self.subdirectories = SCALABLE_STRUCTURE
-                    clear_screen()
-                    print_welcome_message()
+        sleep(0.5)
+        choice_structure = self.choice_structure()
+        match choice_structure:
+            case 1:
+                sleep(2)
+                self.subdirectories = SCALABLE_STRUCTURE
+                clear_screen()
+                print_welcome_message()
 
-                case 2:
-                    sleep(2)
-                    self.subdirectories = API_CLEAN_STRUCTURE
-                    clear_screen()
-                    print_welcome_message()
+            case 2:
+                sleep(2)
+                self.subdirectories = API_CLEAN_STRUCTURE
+                clear_screen()
+                print_welcome_message()
 
-                case 3:
-                    sleep(2)
-                    self.subdirectories = SITE_STRUCTURE
-                    clear_screen()
-                    print_welcome_message()
-                
-                case _:
-                    sleep(0.5)
-                    clear_screen()
-                    print_welcome_message()
-                    print_invalid_value(choice_structure)
-                    self.pull_structure()
-
-        except Exception:
-                    sleep(0.5)
-                    clear_screen()
-                    print_welcome_message()
-                    print_invalid_value(choice_structure)
+            case 3:
+                sleep(2)
+                self.subdirectories = SITE_STRUCTURE
+                clear_screen()
+                print_welcome_message()
+            
+            case _:
+                sleep(0.5)
+                clear_screen()
+                print_welcome_message()
+                print_invalid_value(choice_structure)
+                self.pull_structure()
 
     def create_subdirectories(self):
         for subdirectory, subsubdirs in self.subdirectories.items():
@@ -134,25 +127,32 @@ class CreateStructure:
                 os.makedirs(subsubdirectory_path, exist_ok=True)
                 print_create_subdirectory(subsubdir)
 
+    def choice_license(self):
+        while True:
+            try:
+                sleep(2)
+                print_license_options()
+                choice_license = input(F'{CYAN}\n[$] {RESET}')
+                sleep(1)
+
+                if choice_license.strip():
+                    choice_license = int(choice_license)
+                    
+                    return choice_license
+                
+                else:
+                    sleep(0.5)
+                    clear_screen()
+                    print_welcome_message()
+                    print_invalid_value(choice_license)
+
+            except ValueError:
+                sleep(0.5)
+                clear_screen()
+                print_welcome_message()
+                print_invalid_value(choice_license)
+        
     def create_files(self, project_name):
-        sleep(0.5)
-        src_schemas_path = os.path.join(self.new_directory_path, 'src', 'schemas')
-        app_schemas_path = os.path.join(self.new_directory_path, 'app', 'schemas')
-
-        if os.path.exists(src_schemas_path):
-            gitkeep_path = os.path.join(src_schemas_path, '.gitkeep')
-            with open(gitkeep_path, 'w') as file:
-                file.write('')
-
-            print_create_file('.gitkeep')
-
-        if os.path.exists(app_schemas_path):
-            gitkeep_path = os.path.join(app_schemas_path, '.gitkeep')
-            with open(gitkeep_path, 'w') as file:
-                file.write('')
-
-            print_create_file('.gitkeep')
-
         for file in self.init_files:
             sleep(0.3)
             create_file = os.path.join(self.new_directory_path, file)
@@ -168,53 +168,76 @@ class CreateStructure:
                     file.write('__pycache__/\n\n.venv/\n.env\nschemas/*')
 
             elif 'LICENSE' in create_file:
-                while True:
-                    sleep(0.5)
-                    clear_screen()
-                    print_welcome_message()
-                    print_license_options()
+                sleep(0.5)
+                clear_screen()
+                print_welcome_message()
+                choice_license = self.choice_license()
+                            
+                match choice_license:
+                    case 1:
+                        with open(create_file, 'w') as file:
+                            file.write(MIT)
+                        print_create_license('MIT')
+                        
+                        break
 
-                    try:
-                        choice_license = int(input(F'{CYAN}\n[$] {RESET}'))
-                        sleep(1)
+                    case 2:
+                        with open(create_file, 'w') as file:
+                            file.write(GNU)
+                        print_create_license('GNU')
+                        
+                        break
 
-                        match choice_license:
-                            case 1:
-                                with open(create_file, 'w') as file:
-                                    file.write(MIT)
-                                print_create_license('MIT')
-                                break
+                    case 3:
+                        with open(create_file, 'w') as file:
+                            file.write(APACHE)
+                        print_create_license('APACHE')
 
-                            case 2:
-                                with open(create_file, 'w') as file:
-                                    file.write(GNU)
-                                print_create_license('GNU')
-                                break
-
-                            case 3:
-                                with open(create_file, 'w') as file:
-                                    file.write(APACHE)
-                                print_create_license('APACHE')
-                                break
-
-                            case _:
-                                clear_screen()
-                                print_welcome_message()
-                                print_invalid_value(choice_license)
-                                sleep(0.5)
-
-                    except ValueError:
+                    case _:
+                        sleep(0.5)
                         clear_screen()
                         print_welcome_message()
                         print_invalid_value(choice_license)
-                        sleep(0.5)
+                        self.choice_license()
 
             else:
                 with open(create_file, 'w') as file:
                     file.write('')
 
+    def save_requirements(self):
+        try:
+            with open(os.path.join(self.new_directory_path, 'requirements.txt'), 'w') as file:
+                subprocess.run(
+                    [os.path.join(self.new_directory_path, '.venv', 'bin', 'pip'), 'freeze'],
+                    stdout=file, check=True)
+                
+            print_requirements_saved()
+            sleep(1)
+
+        except subprocess.CalledProcessError:
+            print_requirements_save_error()
+            sys.exit(1)
+
+    def install_libraries(self):
+        try:
+            libraries = ["requests", "flask", "flask-cors", "flasgger"]
+
+            for library in libraries:
+                subprocess.run([os.path.join(self.new_directory_path, '.venv', 'bin', 'pip'), 'install', library], 
+                check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                
+                print_library_installing(library)
+                sleep(1)
+
+            self.save_requirements()
+            print_libraries_installed_successfully()
+            sleep(2)
+
+        except subprocess.CalledProcessError:
+            print_library_installation_error()
+            sys.exit(1)
+
     def create_virtualenv(self):
-        sleep(2)
         temp_dir = tempfile.mkdtemp()
         virtualenv_path = os.path.join(self.new_directory_path, '.venv')
 
@@ -243,10 +266,9 @@ class CreateStructure:
                     loading_thread = threading.Thread(target=download_bar)
                     loading_thread.start()
 
-                    subprocess.run(["sudo", "apt", "install", "python3.12-venv", "-y"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)                   
+                    subprocess.run(["sudo", "apt", "install", "python3.12-venv", "-y"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)              
 
                     loading_thread.join()
-                    shutil.rmtree(temp_dir)
 
                     signal.signal(signal.SIGINT, signal.default_int_handler)
                     enable_input()
@@ -258,21 +280,22 @@ class CreateStructure:
                     clear_screen()
                     print_welcome_message()
                     print_venv_information()
-                    sys.exit(1)
+                    sys.exit(0)
 
                 else:
                     sleep(0.5)
                     clear_screen()
                     print_welcome_message()
                     print_invalid_value(choice_install)
+        finally:    
+            venv.create(virtualenv_path, with_pip=True)
+            clear_screen()
+            print_welcome_message()
+            print_create_environment(virtualenv_path)
+            shutil.rmtree(temp_dir)
+            sleep(2)
 
-        venv.create(virtualenv_path, with_pip=True)
-        clear_screen()
-        print_welcome_message()
-        print_create_environment(virtualenv_path)
-        sleep(2)
-
-        return
+            self.install_libraries()
 
     def execute(self):
         try:
@@ -280,7 +303,7 @@ class CreateStructure:
             if not args.project_name:
                 clear_screen()
                 print_welcome_message()
-                sys.exit(1)
+                sys.exit(0)
 
             self.project_name = args.project_name
             clear_screen()
@@ -299,8 +322,6 @@ class CreateStructure:
 
             clear_screen()
             print_welcome_message()
-
-            sleep(1)
             print_success_message(self.new_directory_path)
         
         except KeyboardInterrupt:

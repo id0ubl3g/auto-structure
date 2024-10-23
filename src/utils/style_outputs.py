@@ -147,3 +147,18 @@ def print_password_or_error():
 
 def print_process_interrupted():
     print(f'\n{ORANGE}[i]{RESET} Process interrupted')
+
+def print_library_installing(library):
+    print(f"\n{CYAN}[+]{RESET} Installed {WHITE}{library}{RESET}.")
+
+def print_libraries_installed_successfully():
+    print(f"\n{GREEN}[✓]{RESET} All libraries installed successfully.")
+
+def print_library_installation_error():
+    print(f"\n{RED}[x]{RESET} An error occurred while installing libraries")
+
+def print_requirements_saved():
+    print(f"\n{CYAN}[+]{RESET} Saved installed libraries to {WHITE}requirements.txt{RESET}.")
+
+def print_requirements_save_error():
+    print(f"\n{RED}[x]{RESET} An error occurred while saving {WHITE}requirements.txt{RESET}.")
