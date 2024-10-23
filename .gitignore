@@ -1,2 +1,8 @@
 # Byte-compiled
 __pycache__/
+
+# Database
+projects/
+
+# Ignore the test folder
+tests/
