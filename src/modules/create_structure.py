@@ -2,7 +2,6 @@ from src.utils.style_outputs import *
 from src.utils.system_utils import *
 from src.utils.sudo_auth import *
 from config.structures import *
-from config.licenses import *
 
 from time import sleep
 import subprocess
@@ -19,7 +18,7 @@ class CreateStructure:
         self.root_directory: str = "projects"
         self.subdirectories: dict = {}
         self.directory_not_exists: bool = None
-        self.init_files: list = ['README.md', '.gitignore', '.env', '.env.example', 'LICENSE']
+        self.init_files: list = ['README.md', '.gitignore', '.env', '.env.example']
 
     def get_current_directory(self):
         return os.getcwd()
@@ -126,31 +125,6 @@ class CreateStructure:
                 subsubdirectory_path = os.path.join(subdirectory_path, subsubdir)
                 os.makedirs(subsubdirectory_path, exist_ok=True)
                 print_create_subdirectory(subsubdir)
-
-    def choice_license(self):
-        while True:
-            try:
-                sleep(2)
-                print_license_options()
-                choice_license = input(F'{CYAN}\n[$] {RESET}')
-                sleep(1)
-
-                if choice_license.strip():
-                    choice_license = int(choice_license)
-                    
-                    return choice_license
-                
-                else:
-                    sleep(0.5)
-                    clear_screen()
-                    print_welcome_message()
-                    print_invalid_value(choice_license)
-
-            except ValueError:
-                sleep(0.5)
-                clear_screen()
-                print_welcome_message()
-                print_invalid_value(choice_license)
         
     def create_files(self, project_name):
         for file in self.init_files:
@@ -166,39 +140,6 @@ class CreateStructure:
             elif '.gitignore' in create_file:
                 with open(create_file, 'w') as file:
                     file.write('__pycache__/\n\n.venv/\n.env\nschemas/*')
-
-            elif 'LICENSE' in create_file:
-                sleep(0.5)
-                clear_screen()
-                print_welcome_message()
-                choice_license = self.choice_license()
-                            
-                match choice_license:
-                    case 1:
-                        with open(create_file, 'w') as file:
-                            file.write(MIT)
-                        print_create_license('MIT')
-                        
-                        break
-
-                    case 2:
-                        with open(create_file, 'w') as file:
-                            file.write(GNU)
-                        print_create_license('GNU')
-                        
-                        break
-
-                    case 3:
-                        with open(create_file, 'w') as file:
-                            file.write(APACHE)
-                        print_create_license('APACHE')
-
-                    case _:
-                        sleep(0.5)
-                        clear_screen()
-                        print_welcome_message()
-                        print_invalid_value(choice_license)
-                        self.choice_license()
 
             else:
                 with open(create_file, 'w') as file:
