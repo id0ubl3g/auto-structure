@@ -1,45 +1,45 @@
-SCALABLE_STRUCTURE = {
+API = {
     'src': [
-        'modules',
-        'utils', 
-        'schemas',
-        'api'
-    ],
-
-    'tests': [],
-    'docs': [],
-    'config': [],
-}
-
-API_CLEAN_STRUCTURE = {
-    'app': [
-        'views',
-        'models',
-        'routes',
-        'controllers',
-        'schemas',
-        'middlewares'
-        'utils'
-    ],
-
-    'tests': [],
-    'docs': [],
-    'config': [],
-}
-
-SITE_STRUCTURE = {
-    'app': [
-        'utils',              
-        'models',            
-        'routes',          
-        'controllers',
-        'schemas',
+        'modules',  
+        'utils',    
+        'api',
+        'services',
         'middlewares',
-        'templates',
-        'static',
+        'schemas',
     ],
+    'database': ['migrations'],
+    'tests': ['unit', 'integration'],
+    'config': [],
+}
 
-    'tests': [],                  
-    'docs': [],                   
-    'config': [],                  
+FLASK = {
+    'app': [
+        'models',  
+        'schemas',      
+        'routes',      
+        'controllers', 
+        'services',    
+        'middlewares', 
+        'utils',
+        'static',
+        'templates', 
+    ],
+    'database': ['migrations'],
+    'tests': ['unit', 'integration'],
+    'config': [],
+}
+
+FASTAPI = {
+    'app': [
+        'models',  
+        'schemas',      
+        'routes',      
+        'controllers', 
+        'services',    
+        'middlewares', 
+        'utils',
+    ],
+    'database': ['migrations'],
+    'tests': ['unit', 'integration'],
+    'config': [],
 }

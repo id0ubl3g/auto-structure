@@ -2,6 +2,7 @@ from src.utils.style_outputs import *
 from src.utils.system_utils import *
 from src.utils.sudo_auth import *
 from config.structures import *
+from config.gitignore import *
 
 from time import sleep
 import subprocess
@@ -19,6 +20,7 @@ class CreateStructure:
         self.subdirectories: dict = {}
         self.directory_not_exists: bool = None
         self.init_files: list = ['README.md', '.gitignore', '.env', '.env.example']
+        self.libraries: list = []
 
     def get_current_directory(self):
         return os.getcwd()
@@ -84,25 +86,71 @@ class CreateStructure:
                         print_welcome_message()
                         print_invalid_value(choice_structure)
 
+    def choice_library(self):
+        while True:
+            try:
+                sleep(2)
+                print_library_selection()
+                choice_library = input(F'{CYAN}\n[$] {RESET}')
+                sleep(1)
+
+                if choice_library.strip():
+                    choice_library = int(choice_library)
+                    
+                    return choice_library
+                
+                else:
+                    sleep(0.5)
+                    clear_screen()
+                    print_welcome_message()
+                    print_invalid_value(choice_library)
+
+            except ValueError:
+                        sleep(0.5)
+                        clear_screen()
+                        print_welcome_message()
+                        print_invalid_value(choice_library)
+
     def pull_structure(self):
         sleep(0.5)
         choice_structure = self.choice_structure()
+
         match choice_structure:
             case 1:
                 sleep(2)
-                self.subdirectories = SCALABLE_STRUCTURE
-                clear_screen()
-                print_welcome_message()
+                self.subdirectories = API
+                while True:
+                    clear_screen()
+                    print_welcome_message()
+                    choice_library = self.choice_library()
+                    match choice_library:
+                        case 1:
+                            self.libraries = ['flask', 'flask-cors', 'flasgger']
+                            
+                            return
+                        
+                        case 2:
+                            self.libraries = ['fastapi', 'uvicorn']
+                            
+                            return
+                        
+                        case _:
+                            sleep(0.5)
+                            clear_screen()
+                            print_welcome_message()
+                            print_invalid_value(choice_library)
 
             case 2:
                 sleep(2)
-                self.subdirectories = API_CLEAN_STRUCTURE
+                self.subdirectories = FLASK
+                self.libraries = ['flask', 'flask-cors', 'flasgger']
                 clear_screen()
                 print_welcome_message()
 
             case 3:
                 sleep(2)
-                self.subdirectories = SITE_STRUCTURE
+                self.subdirectories = FASTAPI
+                self.libraries = ['fastapi', 'uvicorn']
                 clear_screen()
                 print_welcome_message()
             
@@ -139,7 +187,7 @@ class CreateStructure:
 
             elif '.gitignore' in create_file:
                 with open(create_file, 'w') as file:
-                    file.write('__pycache__/\n\n.venv/\n.env\nschemas/*')
+                    file.write(GIT_IGNORE)
 
             else:
                 with open(create_file, 'w') as file:
@@ -161,9 +209,7 @@ class CreateStructure:
 
     def install_libraries(self):
         try:
-            libraries = ["requests", "flask", "flask-cors", "flasgger"]
-
-            for library in libraries:
+            for library in self.libraries:
                 subprocess.run([os.path.join(self.new_directory_path, '.venv', 'bin', 'pip'), 'install', library], 
                 check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 
