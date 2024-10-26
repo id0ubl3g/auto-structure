@@ -1,5 +1,25 @@
 def shared_get_current_directory():
-    from src.modules.create_structure import CreateStructure
-    create_structure = CreateStructure()
-    current_directory = create_structure.get_current_directory()
-    return current_directory
+    import os
+    return os.getcwd()
+
+def shared_show_message_with_clear(msg_func=None, other_msg_func=None, delay=0.5):
+    from src.utils.system_utils import clear_screen
+    from src.utils.style_outputs import print_welcome_message, print_interrupted_message
+    from time import sleep
+    import sys
+    try:
+        clear_screen()
+        print_welcome_message()
+
+        if msg_func:
+            msg_func()
+
+        if other_msg_func:
+            other_msg_func()  
+
+        sleep(delay)
+
+    except KeyboardInterrupt:
+        print_interrupted_message()
+        sys.exit(1)
+    

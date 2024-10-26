@@ -8,6 +8,7 @@ CYAN = '\033[96m'
 ORANGE = "\033[38;5;208m"
 GREEN = '\033[92m'
 
+from src.utils.shared.shared import shared_get_current_directory
 from time import sleep
 import sys
 
@@ -65,7 +66,7 @@ def print_project_options():
     print(f'{CYAN}[2]{RESET} {WHITE}Flask{RESET} Structure: Modular structure for Flask applications')
     print(f'{CYAN}[3]{RESET} {WHITE}FastAPI{RESET} Structure: Modular structure for FastAPI applications')
 
-def print_library_selection():
+def print_library_options():
     print(f'\n{CYAN}[i]{RESET}{BOLD} Select a library to use for your project:{RESET}\n')
     print(f'{CYAN}[1]{RESET} Flask')
     print(f'{CYAN}[2]{RESET} FastAPI')
@@ -92,7 +93,7 @@ def loading_animation():
     for i in range(20):
         sys.stdout.write(f'\r\t{CYAN}Loading... {loading_symbols[i % len(loading_symbols)]}{RESET}')
         sys.stdout.flush()
-        sleep(0.2)
+        sleep(0.3)
         
     print(f'\r\t{CYAN}Loading complete!{RESET}')
 
@@ -127,7 +128,6 @@ def print_venv_information():
     print(f'\n{GREEN}[+]{RESET} For more information, visit: https://docs.python.org/3/library/venv.html')
 
 def print_prompt_password_message():
-    from src.utils.shared.shared import shared_get_current_directory
     current_directory = shared_get_current_directory()
     print(f'\n{ORANGE}[i]{RESET} Please enter your password to gain root access:')
     print(f'\n{GREEN}[i]{RESET} After logging in as root@{current_directory},')
@@ -156,5 +156,3 @@ def print_library_installation_error():
 def print_requirements_saved():
     print(f"\n{CYAN}[+]{RESET} Saved installed libraries to {WHITE}requirements.txt{RESET}.")
 
-def print_requirements_save_error():
-    print(f"\n{RED}[x]{RESET} An error occurred while saving {WHITE}requirements.txt{RESET}.")
