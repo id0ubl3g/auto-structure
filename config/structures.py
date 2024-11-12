@@ -1,45 +1,23 @@
 API = {
     'src': [
         'modules',  
-        'utils',    
+        'utils',
+        'temp',
         'api',
+    ],
+    'tests': ['unit', 'integration'],
+    'config': [],
+}
+
+API_DB = {
+    'app': [
+        'controllers',
         'services',
-        'middlewares',
-        'schemas',
-    ],
-    'database': ['migrations'],
-    'tests': ['unit', 'integration'],
-    'config': [],
-}
-
-FLASK = {
-    'app': [
+        'modules',
+        'routes',
         'models',  
-        'schemas',      
-        'routes',      
-        'controllers', 
-        'services',    
-        'middlewares', 
-        'utils',
-        'static',
-        'templates', 
-    ],
-    'database': ['migrations'],
-    'tests': ['unit', 'integration'],
-    'config': [],
-}
-
-FASTAPI = {
-    'app': [
-        'models',  
-        'schemas',      
-        'routes',      
-        'controllers', 
-        'services',    
-        'middlewares', 
         'utils',
     ],
-    'database': ['migrations'],
     'tests': ['unit', 'integration'],
     'config': [],
 }

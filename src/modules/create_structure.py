@@ -1,16 +1,13 @@
 from src.utils.shared.shared import *
 from src.utils.style_outputs import *
 from src.utils.system_utils import *
-from src.utils.sudo_auth import *
 from config.structures import *
 from config.gitignore import *
 
 from time import sleep                             
 import subprocess
-import threading
 import tempfile
 import shutil
-import signal
 import venv
 import sys
 import os
@@ -67,59 +64,18 @@ class CreateStructure:
             except ValueError:
                 shared_show_message_with_clear(lambda: print_invalid_value(choice_structure))
 
-    def choice_library(self):
-        while True:
-            try:
-                sleep(self.medium_time)
-                shared_show_message_with_clear(print_library_options, delay=0)
-                choice_library = input(F'{CYAN}\n[$] {RESET}')
-                sleep(self.long_time)
-
-                if choice_library.strip():
-                    choice_library = int(choice_library)
-                    
-                    return choice_library
-                
-                else:
-                    shared_show_message_with_clear(lambda: print_invalid_value(choice_library))
-                    
-
-            except ValueError:
-                shared_show_message_with_clear(lambda: print_invalid_value(choice_library))
-
     def pull_structure(self):
         choice_structure = self.choice_structure()
 
         match choice_structure:
             case 1:
                 self.subdirectories = API
-                while True:
-                    shared_show_message_with_clear()
-                    choice_library = self.choice_library()
-                    match choice_library:
-                        case 1:
-                            self.libraries = ['flask', 'flask-cors', 'flasgger']
-                            shared_show_message_with_clear()
-                            
-                            return
-                        
-                        case 2:
-                            self.libraries = ['fastapi', 'uvicorn']
-                            shared_show_message_with_clear()
-                            
-                            return
-                        
-                        case _:
-                            print_invalid_value(choice_library)
+                self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn']
+                shared_show_message_with_clear()
                             
             case 2:
-                self.subdirectories = FLASK
-                self.libraries = ['flask', 'flask-cors', 'flasgger']
-                shared_show_message_with_clear()
-
-            case 3:
-                self.subdirectories = FASTAPI
-                self.libraries = ['fastapi', 'uvicorn']
+                self.subdirectories = API_DB
+                self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn', 'psycopg2-binary', 'Flask-SQLAlchemy']
                 shared_show_message_with_clear()
             
             case _:
@@ -191,44 +147,9 @@ class CreateStructure:
             subprocess.run(["python3.12", "-m", "venv", os.path.join(temp_dir, "test_env")], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         except subprocess.CalledProcessError:
-            while True:
-                sleep(self.medium_time)
-                shared_show_message_with_clear(print_venv_not_installed, delay=0)
-                
-                try:
-                    choice_install = str(input(f'{CYAN}\n[$] {RESET}')).lower()
-                
-                except KeyboardInterrupt:
-                    shared_show_message_with_clear(print_interrupted_message)
-                    sys.exit(1)
-
-                sleep(self.long_time)
-
-                if choice_install == 'y':
-                    run_sudo()
-                    shared_show_message_with_clear()
-
-                    signal.signal(signal.SIGINT, signal.SIG_IGN)
-                    disable_input()
-
-                    loading_thread = threading.Thread(target=download_bar)
-                    loading_thread.start()
-                    
-                    subprocess.run(["sudo", "apt", "install", "python3.12-venv", "-y"], check=True, tdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)              
-
-                    loading_thread.join()
-
-                    signal.signal(signal.SIGINT, signal.default_int_handler)
-                    enable_input()
-
-                    break
-
-                elif choice_install == 'n':
-                    shared_show_message_with_clear(print_venv_information)
-                    sys.exit(0)
-
-                else:
-                    shared_show_message_with_clear(lambda: print_invalid_value(choice_install))
+            sleep(self.medium_time)
+            shared_show_message_with_clear(print_venv_information)
+            sys.exit(0)
 
         finally:    
             venv.create(virtualenv_path, with_pip=True)
