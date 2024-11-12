@@ -1,11 +1,8 @@
-GIT_IGNORE = '''# Byte-compiled
+DOCKER_IGNORE = '''# Byte-compiled
 __pycache__/
 
 # Virtual environment
 .venv/
-
-# Environment variables
-.env
 
 # Logs
 *.log
@@ -20,4 +17,7 @@ tests/
 
 # Temporary files
 temp/
+
+# Version control
+.git
 '''

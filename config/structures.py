@@ -3,10 +3,12 @@ API = {
         'modules',  
         'utils',
         'temp',
-        'api',
+        'logs',
+        'api'
     ],
     'tests': ['unit', 'integration'],
     'config': [],
+    'docs': []
 }
 
 API_DB = {
@@ -17,7 +19,9 @@ API_DB = {
         'routes',
         'models',  
         'utils',
+        'logs'
     ],
     'tests': ['unit', 'integration'],
     'config': [],
+    'docs': []
 }

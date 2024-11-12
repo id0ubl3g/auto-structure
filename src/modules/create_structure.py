@@ -1,6 +1,7 @@
 from src.utils.shared.shared import *
 from src.utils.style_outputs import *
 from src.utils.system_utils import *
+from config.dockerignore import *
 from config.structures import *
 from config.gitignore import *
 
@@ -17,7 +18,7 @@ class CreateStructure:
         self.root_directory: str = "projects"
         self.subdirectories: dict = {}
         self.directory_not_exists: bool = None
-        self.init_files: list = ['README.md', '.gitignore', '.env', '.env.example']
+        self.init_files: list = ['README.md', '.gitignore', '.env', '.env.example', 'Dockerfile', '.dockerignore']
         self.libraries: list = []
         self.short_time =  0.5
         self.medium_time = 1
@@ -72,9 +73,10 @@ class CreateStructure:
                 self.subdirectories = API
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn']
                 shared_show_message_with_clear()
-                            
+
             case 2:
                 self.subdirectories = API_DB
+                self.init_files.append('docker-compose.yml')
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn', 'psycopg2-binary', 'Flask-SQLAlchemy']
                 shared_show_message_with_clear()
             
