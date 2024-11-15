@@ -1,12 +1,12 @@
 API = {
     'src': [
         'modules',  
-        'utils',
+        'utils/shared',
         'temp',
         'logs',
         'api'
     ],
-    'tests': ['unit', 'integration'],
+    'tests': [],
     'config': [],
     'docs': []
 }
@@ -17,11 +17,13 @@ API_DB = {
         'services',
         'modules',
         'routes',
-        'models',  
-        'utils',
+        'models',
+        'views/handlers',
+        'utils/shared',
+        'temp',
         'logs'
     ],
-    'tests': ['unit', 'integration'],
+    'tests': [],
     'config': [],
     'docs': []
 }
