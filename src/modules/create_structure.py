@@ -1,9 +1,14 @@
 from src.utils.shared.shared import *
 from src.utils.style_outputs import *
 from src.utils.system_utils import *
-from config.dockerignore import *
+
 from config.structures import *
-from config.gitignore import *
+
+from docs.write_dockercompose import *
+from docs.write_dockerignore import *
+from docs.write_dockerfile import *
+from docs.write_gitignore import *
+from docs.write_env import *
 
 from time import sleep                             
 import subprocess
@@ -16,9 +21,10 @@ import os
 class CreateStructure:
     def __init__(self):
         self.root_directory: str = "projects"
+        self.strcuture_name: str = None
         self.subdirectories: dict = {}
         self.directory_not_exists: bool = None
-        self.init_files: list = ['README.md', '.gitignore', '.env', '.env.example', 'Dockerfile', '.dockerignore']
+        self.init_files: list = ['README.md', '.gitignore', '.env', 'Dockerfile', '.dockerignore', 'run.py']
         self.libraries: list = []
         self.short_time =  0.5
         self.medium_time = 1
@@ -70,18 +76,18 @@ class CreateStructure:
 
         match choice_structure:
             case 1:
-                self.subdirectories = API
+                self.subdirectories, self.strcuture_name = API, 'API'
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn']
                 shared_show_message_with_clear()
 
             case 2:
-                self.subdirectories = API_DB
+                self.subdirectories, self.strcuture_name = API_DB, 'API_DB'
                 self.init_files.append('docker-compose.yml')
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn', 'psycopg2-binary', 'Flask-SQLAlchemy']
                 shared_show_message_with_clear()
             
             case _:
-                shared_show_message_with_clear(lambda: print_invalid_value(choice_structure))
+                shared_show_message_with_clear(lambda: print_invalid_value(self.choice_structure))
                 self.pull_structure()
 
     def create_subdirectories(self):
@@ -106,11 +112,41 @@ class CreateStructure:
 
             if 'README.md' in create_file:
                 with open(create_file, 'w') as file:
-                    file.write(project_name)
+                    file.write(f'# {project_name}')
 
             elif '.gitignore' in create_file:
                 with open(create_file, 'w') as file:
                     file.write(GIT_IGNORE)
+
+            elif '.dockerignore' in create_file:
+                with open(create_file, 'w') as file:
+                    file.write(DOCKER_IGNORE)
+
+            elif 'run.py' in create_file:
+                with open(create_file, 'w') as file:
+                    file.write('')
+
+            elif self.strcuture_name == 'API':
+                if 'Dockerfile' in create_file:
+                    with open(create_file, 'w') as file:
+                        file.write(DOCKER_API)
+
+                elif '.env' in create_file:
+                    with open(create_file, 'w') as file:
+                        file.write(ENV_API)
+
+            elif self.strcuture_name == 'API_DB':
+                if 'Dockerfile' in create_file:
+                    with open(create_file, 'w') as file:
+                        file.write(DOCKER_API_DB)
+
+                elif 'docker-compose.yml' in create_file:
+                    with open(create_file, 'w') as file:
+                        file.write(DOCKERCOMPOSE_API_DB)
+
+                elif '.env' in create_file:
+                    with open(create_file, 'w') as file:
+                        file.write(ENV_API_DB)
 
             else:
                 with open(create_file, 'w') as file:
@@ -189,7 +225,6 @@ class CreateStructure:
             self.create_virtualenv()
             shared_show_message_with_clear()
             loading_animation()
-        
 
         except KeyboardInterrupt:
             shared_show_message_with_clear(print_interrupted_message)
