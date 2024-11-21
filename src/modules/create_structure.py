@@ -2,12 +2,11 @@ from src.utils.shared.shared import *
 from src.utils.style_outputs import *
 from src.utils.system_utils import *
 
-from config.structures import *
-
 from docs.write_dockercompose import *
 from docs.write_dockerignore import *
 from docs.write_dockerfile import *
 from docs.write_gitignore import *
+from docs.base_structures import *
 from docs.write_env import *
 
 from time import sleep                             

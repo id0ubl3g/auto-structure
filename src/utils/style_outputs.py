@@ -8,7 +8,6 @@ CYAN = '\033[96m'
 ORANGE = "\033[38;5;208m"
 GREEN = '\033[92m'
 
-from src.utils.shared.shared import shared_get_current_directory
 from time import sleep
 import sys
 
@@ -20,11 +19,11 @@ def print_welcome_message():
   / _ \| | | | __/ _ \  \___ \| __| '__| | | |/ __| __| | | | '__/ _ \
  / ___ \ |_| | || (_) |  ___) | |_| |  | |_| | (__| |_| |_| | | |  __/
 /_/   \_\__,_|\__\___/  |____/ \__|_|   \__,_|\___|\__|\__,_|_|  \___|
-            {RESET}{WHITE}Flexible Flask API structures for any project.
+            {RESET}{WHITE}Flexible {RED}Flask{WHITE} API structures for any project.
             {RESET}{CYAN}
-        [*]__author__: @id0ubl3g
-        [*]__version__: 1.0 
-        [*]__usage__: {YELLOW}python3{RESET} main.py -n {CYAN}[project_name]{RESET}
+        [*]__author__: {RESET}George Victor | @id0ubl3g{CYAN}
+        [*]__github__: {RESET}github.com/id0ubl3g/auto-structure{CYAN}
+        [*]__usage__: {YELLOW}python3{RESET} run.py -n {CYAN}project_name{RESET}
 ''')
 
 def print_create_root_directory(directory_name):
@@ -72,8 +71,7 @@ def print_success_message(directory_name):
     activation_command = "source .venv/bin/activate"
 
     print(rf'''
-        {GREEN}[v]{RESET} Your project is ready to use at: {WHITE}{directory_name}{RESET}
-        {GREEN}[v]{RESET} Virtual environment setup complete
+        {GREEN}[v]{RESET} Your project is ready to use and Virtual environment setup complete
         {CYAN}[i]{RESET} Ready to code! Start by activating the environment with: 
             
             {WHITE}cd {directory_name}{RESET}
@@ -81,6 +79,7 @@ def print_success_message(directory_name):
 
         {CYAN}Good luck and happy coding!{RESET}
 ''')
+print_success_message('teste')
 
 def loading_animation():
     loading_symbols = ['|', '/', '-', '\\']
@@ -102,14 +101,6 @@ def print_venv_information():
     print(f'{ORANGE}[i]{RESET} To install it, run the following command:')
     print(f'\n\t{install_venv}\n')
     print(f'{GREEN}[+]{RESET} For more information, visit: https://docs.python.org/3/library/venv.html\n')
-
-def print_prompt_password_message():
-    current_directory = shared_get_current_directory()
-    print(f'\n{ORANGE}[i]{RESET} Please enter your password to gain root access:')
-    print(f'\n{GREEN}[i]{RESET} After logging in as root@{current_directory},')
-    print(f'\n\t{ORANGE}press Ctrl+D{RESET} or type {ORANGE}exit{RESET} to continue.')
-    print(f'\n{CYAN}[i]{RESET} If you are already logged in as root,{RESET}')
-    print(f'\n\tjust {ORANGE}press Ctrl+D{RESET} to confirm and proceed with the process.{RESET}\n')
 
 def print_library_installing(library):
     print(f"\n{CYAN}[+]{RESET} Installed {WHITE}{library}{RESET}.")
