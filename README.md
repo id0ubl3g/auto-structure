@@ -1,7 +1,7 @@
 # Auto Structure
 
 ## Overview
-The Auto Structure is a modular and extensible framework for building scalable Python projects. Inspired by Vite, it emphasizes simplicity, performance, and clean architecture.
+Auto Structure provides modular and extensible solutions for building scalable Python projects. Inspired by Vite, it emphasizes simplicity, performance, and clean architecture.
 
 ## Venv Prerequisites
 
@@ -22,14 +22,13 @@ sudo apt install python3-venv
 python3 run.py -n project_name
 ```
 
-Replace project name with the desired name of your project. Auto Structure will generate a pre-configured directory structure based on your requirements.
+Replace project_name with the desired name of your project. Auto Structure will generate a pre-configured directory structure based on your requirements.
 
 ## Base Structures
 
 ### 1. Lightweight API
 
-This structure is suitable for lightweight APIs without database integration:
-
+This structure is suitable for lightweight APIs, ideal for microservices:
 ```
 project_name
 ├── src
@@ -49,9 +48,15 @@ project_name
 
 - Customizability: The structure is flexible and can be easily adapted to different types of Python projects. You can add or remove directories as necessary for your specific use case.
 
+- **Installed Libraries**:
+    - `Flask`: Lightweight web framework.
+    - `flask-cors`: Middleware for Cross-Origin requests.
+    - `flasgger`: Swagger integration for API documentation.
+    - `gunicorn`: WSGI HTTP server for deploying your application.
+
 ### 2. Extended API
 
-This structure is designed for more complex APIs with database integration:
+This structure is designed for more complex APIs with PostgreSQL database integration:
 
 ```
 project_name
@@ -72,9 +77,17 @@ project_name
 
 #### Notes Extended API
 
-- The API with Database Integration structure includes additional folders (`controllers`, `services`,` models`, and `views/handlers`) to support database management and MVC-style architecture.
+- The API with Database Integration structure includes additional folders (`controllers`, `services`, `routes` ,`models`, and `views/handlers`) to support database management and MVC-style architecture.
 
 - Both structures ensure separation of concerns, making them easy to scale and maintain.
+
+- **Installed Libraries**:
+    - `Flask`: Lightweight web framework.
+    - `flask-cors`: Middleware for Cross-Origin requests.
+    - `flasgger`: Swagger integration for API documentation.
+    - `gunicorn`: WSGI HTTP server for deploying your application.
+    - `psycopg2-binary`: PostgreSQL database adapter for Python.
+    - `Flask-SQLAlchemy`: SQL toolkit and ORM for database operations.
 
 Use the appropriate structure based on your project complexity and requirements.
 
