@@ -191,7 +191,7 @@ class CreateStructure:
         try:
             self.create_virtualenv()
             shared_show_message_with_clear()
-            loading_animation()
+            loading_bar()
 
         except KeyboardInterrupt:
             shared_show_message_with_clear(print_interrupted_message)

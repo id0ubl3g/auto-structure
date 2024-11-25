@@ -23,7 +23,6 @@ def print_welcome_message():
     [*]__github__: {RESET}github.com/id0ubl3g/auto-structure{CYAN}
     [*]__usage__: {YELLOW}python3{RESET} run.py -n {CYAN}project_name{RESET}
 ''')
-print_welcome_message()
     
 def print_create_root_directory(directory_name):
     print(f'\n{GREEN}[v]{RESET} Creating root directory at: {WHITE}{directory_name}{RESET}')
@@ -79,14 +78,16 @@ def print_success_message(directory_name):
         {CYAN}Good luck and happy coding!{RESET}
 ''')
 
-def loading_animation():
-    loading_symbols = ['|', '/', '-', '\\']
-    for i in range(20):
-        sys.stdout.write(f'\r\t{CYAN}Loading... {loading_symbols[i % len(loading_symbols)]}{RESET}')
+def loading_bar():
+    total_steps = 40
+    for i in range(total_steps + 1):
+        percentage = (i / total_steps) * 100
+        bar = f"[{'#' * i}{'.' * (total_steps - i)}]"
+        sys.stdout.write(f'\r\tLoading {bar} {percentage:.0f}%')
         sys.stdout.flush()
-        sleep(0.3)
-        
-    print(f'\r\t{CYAN}Loading complete!{RESET}')
+        sleep(0.15)
+    print(f'\r\tFinish!')
+    sleep(1.5)
 
 def print_directory_removed(directory_path):
     print(f'\n{RED}[x]{RESET} Directory removed at: {WHITE}{directory_path}{RESET} due to interruption')
