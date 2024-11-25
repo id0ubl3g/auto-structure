@@ -142,7 +142,7 @@ This structure is designed for more complex APIs with PostgreSQL database integr
     │   ├── routes
     │   ├── models
     │   ├── views
-    │   │    └── handlers
+    │   │   └── handlers
     │   ├── utils
     │   │   └── shared
     │   ├── temp

@@ -12,20 +12,19 @@ from time import sleep
 import sys
 
 def print_welcome_message():
-    print(rf'''{CYAN}
+    print(rf'''{CYAN}   ___       __           ______               __              
+  / _ |__ __/ /____      / __/ /_______ ______/ /___ _________ 
+ / __ / // / __/ _ \    _\ \/ __/ __/ // / __/ __/ // / __/ -_)
+/_/ |_\_,_/\__/\___/   /___/\__/_/  \_,_/\__/\__/\_,_/_/  \__/ 
 
-    _         _          ____  _                   _                  
-   / \  _   _| |_ ___   / ___|| |_ _ __ _   _  ___| |_ _   _ _ __ ___ 
-  / _ \| | | | __/ _ \  \___ \| __| '__| | | |/ __| __| | | | '__/ _ \
- / ___ \ |_| | || (_) |  ___) | |_| |  | |_| | (__| |_| |_| | | |  __/
-/_/   \_\__,_|\__\___/  |____/ \__|_|   \__,_|\___|\__|\__,_|_|  \___|
-            {RESET}{WHITE}Flexible {RED}Flask{WHITE} API structures for any project.
+        {RESET}{WHITE}Flexible {RED}Flask{WHITE} API structures for any project.
             {RESET}{CYAN}
-        [*]__author__: {RESET}George Victor | @id0ubl3g{CYAN}
-        [*]__github__: {RESET}github.com/id0ubl3g/auto-structure{CYAN}
-        [*]__usage__: {YELLOW}python3{RESET} run.py -n {CYAN}project_name{RESET}
+    [*]__author__: {RESET}George Victor | @id0ubl3g{CYAN}
+    [*]__github__: {RESET}github.com/id0ubl3g/auto-structure{CYAN}
+    [*]__usage__: {YELLOW}python3{RESET} run.py -n {CYAN}project_name{RESET}
 ''')
-
+print_welcome_message()
+    
 def print_create_root_directory(directory_name):
     print(f'\n{GREEN}[v]{RESET} Creating root directory at: {WHITE}{directory_name}{RESET}')
 
