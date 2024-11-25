@@ -70,12 +70,12 @@ class CreateStructure:
 
         match choice_structure:
             case 1:
-                self.subdirectories = API
+                self.subdirectories = Lightweight_API
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn']
                 shared_show_message_with_clear()
 
             case 2:
-                self.subdirectories = API_DB
+                self.subdirectories = Extended_API
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn', 'psycopg2-binary', 'Flask-SQLAlchemy']
                 shared_show_message_with_clear()
             

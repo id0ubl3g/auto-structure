@@ -1,4 +1,4 @@
-API = {
+Lightweight_API = {
     'src': [
         'modules',  
         'utils/shared',
@@ -11,7 +11,7 @@ API = {
     'docs': []
 }
 
-API_DB = {
+Extended_API = {
     'app': [
         'controllers',
         'services',

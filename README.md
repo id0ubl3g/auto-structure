@@ -1,5 +1,5 @@
 <div align="center">
-    <img src=".github/crane-logo.png" alt="Crane Logo" width="130" style="border: 4px solid red; padding: 5px; border-radius: 50%;">
+    <img src=".github/crane-logo.png" alt="Crane Logo" width="130">
     <h1><b>Auto Structure</b></h1>
     <p>Flexible Flask API structures for any project, inspired by Vite.</p>
     <p>
@@ -106,7 +106,8 @@ This structure is suitable for lightweight APIs, ideal for microservices:
 └── project_name
     ├── src
     │   ├── modules
-    │   ├── utils/shared
+    │   ├── utils
+    │   │   └── shared
     │   ├── temp
     │   ├── logs
     │   └── api
@@ -140,8 +141,10 @@ This structure is designed for more complex APIs with PostgreSQL database integr
     │   ├── modules
     │   ├── routes
     │   ├── models
-    │   ├── views/handlers
-    │   ├── utils/shared
+    │   ├── views
+    │   │    └── handlers
+    │   ├── utils
+    │   │   └── shared
     │   ├── temp
     │   └── logs
     ├── tests

@@ -3,10 +3,10 @@ BOLD = "\033[1m"
 WHITE = "\033[37m"
 BLUE = "\033[34m"
 YELLOW = "\033[33m"
-RED = '\033[91m'
-CYAN = '\033[96m'
+RED = "\033[91m"
+CYAN = "\033[96m"
 ORANGE = "\033[38;5;208m"
-GREEN = '\033[92m'
+GREEN = "\033[92m"
 
 from time import sleep
 import sys
@@ -61,8 +61,8 @@ def print_error_unexpected():
 
 def print_project_options():
     print(f'\n{CYAN}[i]{RESET}{BOLD} Select a project structure to set up:{RESET}\n')
-    print(f'{CYAN}[1]{RESET} Lightweight API: Minimal structure for APIs.')
-    print(f'{CYAN}[2]{RESET} Extended API: API with PostgreSQL support.')
+    print(f'{CYAN}[1]{RESET} Lightweight API: This structure is suitable for lightweight APIs, ideal for microservices')
+    print(f'{CYAN}[2]{RESET} Extended API: This structure is designed for more complex APIs with PostgreSQL database integration')
     
 def print_create_file(file_name):
     print(f'\n{CYAN}[+]{RESET} Creating file: {WHITE}{file_name}{RESET}')
@@ -70,7 +70,7 @@ def print_create_file(file_name):
 def print_success_message(directory_name):
     activation_command = "source .venv/bin/activate"
 
-    print(rf'''
+    print(f'''
         {GREEN}[v]{RESET} Your project is ready to use and Virtual environment setup complete
         {CYAN}[i]{RESET} Ready to code! Start by activating the environment with: 
             
@@ -79,7 +79,6 @@ def print_success_message(directory_name):
 
         {CYAN}Good luck and happy coding!{RESET}
 ''')
-print_success_message('teste')
 
 def loading_animation():
     loading_symbols = ['|', '/', '-', '\\']
