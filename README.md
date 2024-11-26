@@ -31,20 +31,20 @@ Auto Structure provides modular and extensible solutions for building scalable P
 ## Project Structure
 
 ```plaintext
-└── auto-structure
-    ├── .github
+└── auto-structure/
+    ├── .github/
     │   ├── crane-logo.png
-    ├── src
-    │   ├── modules
+    ├── src/
+    │   ├── modules/
     │   │   └── create_structures.py
-    │   ├── utils
+    │   ├── utils/
     │   │   ├── shared/
     │   │   │   └── shared.py
     │   │   ├── style_outputs.py
     │   │   └── system_utils.py
-    ├── config
+    ├── config/
     │   └── path.config.py
-    ├── docs
+    ├── docs/
     │   ├── base_structures.py
     │   └── write_gitignore.py
     ├── .gitignore
@@ -103,17 +103,17 @@ Auto Structure currently supports two base structures:
 This structure is suitable for lightweight APIs, ideal for microservices:
 
 ```plaintext
-└── project_name
-    ├── src
-    │   ├── modules
-    │   ├── utils
-    │   │   └── shared
-    │   ├── temp
-    │   ├── logs
-    │   └── api
-    ├── tests
-    ├── config
-    └── docs
+└── project_name/
+    ├── src/
+    │   ├── modules/
+    │   ├── utils/
+    │   │   └── shared/
+    │   ├── temp/
+    │   ├── logs/
+    │   └── api/
+    ├── tests/
+    ├── config/
+    └── docs/
 ```
 
 #### Notes Lightweight API
@@ -134,22 +134,22 @@ This structure is suitable for lightweight APIs, ideal for microservices:
 This structure is designed for more complex APIs with PostgreSQL database integration:
 
 ```plaintext
-└── project_name
-    ├── app
-    │   ├── controllers
-    │   ├── services
-    │   ├── modules
-    │   ├── routes
-    │   ├── models
-    │   ├── views
-    │   │   └── handlers
-    │   ├── utils
-    │   │   └── shared
-    │   ├── temp
-    │   └── logs
-    ├── tests
-    ├── config
-    └── docs
+└── project_name/
+    ├── app/
+    │   ├── controllers/
+    │   ├── services/
+    │   ├── modules/
+    │   ├── routes/
+    │   ├── models/
+    │   ├── views/
+    │   │   └── handlers/
+    │   ├── utils/
+    │   │   └── shared/
+    │   ├── temp/
+    │   └── logs/
+    ├── tests/
+    ├── config/
+    └── docs/
 ```
 
 #### Notes Extended API
