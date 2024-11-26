@@ -22,7 +22,8 @@
         - [Notes Lightweight API](#notes-lightweight-api)  
     - [2. Extended API](#2-extended-api)  
         - [Notes Extended API](#notes-extended-api)  
-- [Get Ready, Activate, Code!](#get-ready-activate-code)  
+- [Get Ready, Activate, Code!](#get-ready-activate-code)
+- [License](#license)
 
 ## Overview
 
@@ -48,6 +49,7 @@ Auto Structure provides modular and extensible solutions for building scalable P
     │   ├── base_structures.py
     │   └── write_gitignore.py
     ├── .gitignore
+    ├── LICENSE
     ├── README.md
     └── run.py
 ```
@@ -190,3 +192,7 @@ This structure is designed for more complex APIs with PostgreSQL database integr
     cd project_name
     source .venv/bin/activate
     ```
+
+## License
+
+This project is licensed under the terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). See the [LICENSE](./LICENSE) file for details.
