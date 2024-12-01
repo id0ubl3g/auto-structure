@@ -1,4 +1,4 @@
-GIT_IGNORE = '''# Byte-compiled
+GIT_IGNORE: str = '''# Byte-compiled
 __pycache__/
 
 # Virtual environment

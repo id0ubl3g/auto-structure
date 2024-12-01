@@ -4,7 +4,7 @@ import argparse
 import sys
 import os
 
-def parse_arguments():
+def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Create a project structure.', usage='%(prog)s -n [project_name]')
     parser.add_argument('-n', '--project_name', type=str, help='The name of the project directory')
 
@@ -16,5 +16,5 @@ def parse_arguments():
         print_welcome_message()
         sys.exit(1)
 
-def clear_screen():
+def clear_screen() -> None:
     os.system('clear')

@@ -5,7 +5,8 @@ from src.utils.system_utils import *
 from docs.write_gitignore import *
 from docs.base_structures import *
 
-from time import sleep                             
+from typing import Dict, List, Optional
+from time import sleep
 import subprocess
 import tempfile
 import shutil
@@ -14,43 +15,47 @@ import sys
 import os
 
 class CreateStructure:
-    def __init__(self):
+    def __init__(self) -> None:
         self.root_directory: str = "projects"
-        self.subdirectories: dict = {}
-        self.directory_not_exists: bool = None
-        self.init_files: list = ['README.md', '.gitignore', 'run.py']
-        self.libraries: list = []
-        self.short_time =  0.5
-        self.medium_time = 1
-        self.long_time = 2
+        self.subdirectories: Dict[str, List[str]] = {}
+        self.directory_not_exists: Optional[bool] = None
+        self.init_files: List[str] = ['README.md', '.gitignore', 'run.py']
+        self.libraries: List[str] = []
+
+        self.short_time: float = 0.5
+        self.medium_time: float = 1.0
+        self.long_time: float = 2.0
+
+        self.new_directory_path: Optional[str] = None
+        self.project_name: Optional[str] = None
     
-    def concatenate_paths(self, project_name):
+    def concatenate_paths(self, project_name: str) -> str:
         current_directory = shared_get_current_directory()
         return os.path.join(current_directory, self.root_directory, project_name)
 
-    def check_directory_exists(self, project_name):
+    def check_directory_exists(self, project_name: str) -> None:
         self.new_directory_path = self.concatenate_paths(project_name)
         self.directory_not_exists = not os.path.exists(self.new_directory_path)
     
-    def remove_directory(self, directory):
+    def remove_directory(self, directory: str) -> None:
         shutil.rmtree(directory)
 
-    def create_root_directory(self):
+    def create_root_directory(self) -> None:
         if self.directory_not_exists:
             os.makedirs(self.new_directory_path, exist_ok=True)
             print_create_root_directory(self.new_directory_path)
             sleep(self.medium_time)
-            
+
             return
-        
+                    
         shared_show_message_with_clear(lambda: print_directory_exists(self.new_directory_path))
         sys.exit(0)
 
-    def choice_structure(self):
+    def choice_structure(self) -> int:
         while True:
             try:
                 sleep(self.medium_time)
-                shared_show_message_with_clear(print_project_options, delay=0)
+                shared_show_message_with_clear(print_project_options, delay=0.0)
                 choice_structure = input(F'{CYAN}\n[$] {RESET}')
                 sleep(self.long_time)
 
@@ -65,7 +70,7 @@ class CreateStructure:
             except ValueError:
                 shared_show_message_with_clear(lambda: print_invalid_value(choice_structure))
 
-    def pull_structure(self):
+    def pull_structure(self) -> None:
         choice_structure = self.choice_structure()
 
         match choice_structure:
@@ -83,7 +88,7 @@ class CreateStructure:
                 shared_show_message_with_clear(lambda: print_invalid_value(self.choice_structure))
                 self.pull_structure()
 
-    def create_subdirectories(self):
+    def create_subdirectories(self) -> None:
         for subdirectory, subsubdirs in self.subdirectories.items():
             sleep(self.short_time)
             subdirectory_path = os.path.join(self.new_directory_path, subdirectory)
@@ -96,7 +101,7 @@ class CreateStructure:
                 os.makedirs(subsubdirectory_path, exist_ok=True)
                 print_create_subdirectory(subsubdir)
         
-    def create_files(self, project_name):
+    def create_files(self, project_name: str) -> None:
         for file in self.init_files:
             sleep(self.short_time)
             create_file = os.path.join(self.new_directory_path, file)
@@ -118,8 +123,8 @@ class CreateStructure:
             else:
                 with open(create_file, 'w') as file:
                     file.write('')
-
-    def save_requirements(self):
+        
+    def save_requirements(self) -> None:
         sleep(self.short_time)
         with open(os.path.join(self.new_directory_path, 'requirements.txt'), 'w') as file:
             subprocess.run([os.path.join(self.new_directory_path, '.venv', 'bin', 'pip'), 'freeze'], stdout=file, check=True)
@@ -127,7 +132,7 @@ class CreateStructure:
         print_requirements_saved()
         sleep(self.medium_time)
 
-    def install_libraries(self):
+    def install_libraries(self) -> None:
         try:
             for library in self.libraries:
                 sleep(self.short_time)
@@ -139,12 +144,13 @@ class CreateStructure:
             self.save_requirements()
             print_libraries_installed_successfully()
             sleep(self.long_time)
+            
 
         except subprocess.CalledProcessError:
             shared_show_message_with_clear(print_library_installation_error)
             sys.exit(1)
 
-    def create_virtualenv(self):
+    def create_virtualenv(self) -> None:
         temp_dir = tempfile.mkdtemp()
         virtualenv_path = os.path.join(self.new_directory_path, '.venv')
 
@@ -162,7 +168,7 @@ class CreateStructure:
             self.remove_directory(temp_dir)
             self.install_libraries()
 
-    def execute(self):
+    def execute(self) -> None:
         args = parse_arguments()
         if not args.project_name:
             shared_show_message_with_clear()
