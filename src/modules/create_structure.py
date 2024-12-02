@@ -5,7 +5,7 @@ from src.utils.system_utils import *
 from docs.write_gitignore import *
 from docs.base_structures import *
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from time import sleep
 import subprocess
 import tempfile
@@ -26,8 +26,13 @@ class CreateStructure:
         self.medium_time: float = 1.0
         self.long_time: float = 2.0
 
+        self.choice_structure: Optional[Any] = None
+
         self.new_directory_path: Optional[str] = None
         self.project_name: Optional[str] = None
+
+        self.subsubdirectory_path: Optional[str] = None
+        self.subdirectory_path: Optional[str] = None
     
     def concatenate_paths(self, project_name: str) -> str:
         current_directory = shared_get_current_directory()
@@ -51,29 +56,28 @@ class CreateStructure:
         shared_show_message_with_clear(lambda: print_directory_exists(self.new_directory_path))
         sys.exit(0)
 
-    def choice_structure(self) -> int:
+    def select_structure(self) -> None:
         while True:
             try:
                 sleep(self.medium_time)
                 shared_show_message_with_clear(print_project_options, delay=0.0)
-                choice_structure = input(F'{CYAN}\n[$] {RESET}')
+                self.choice_structure = input(F'{CYAN}\n[$] {RESET}')
                 sleep(self.long_time)
 
-                if choice_structure.strip():
-                    choice_structure = int(choice_structure)
+                if self.choice_structure.strip():
+                    self.choice_structure = int(self.choice_structure)
                     
-                    return choice_structure
+                    return
                 
                 else:
-                    shared_show_message_with_clear(lambda: print_invalid_value(choice_structure))
+                    shared_show_message_with_clear(lambda: print_invalid_value(self.choice_structure))
 
             except ValueError:
-                shared_show_message_with_clear(lambda: print_invalid_value(choice_structure))
+                shared_show_message_with_clear(lambda: print_invalid_value(self.choice_structure))
 
+    @execute_before(select_structure)
     def pull_structure(self) -> None:
-        choice_structure = self.choice_structure()
-
-        match choice_structure:
+        match self.choice_structure:
             case 1:
                 self.subdirectories = Lightweight_API
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn']
@@ -91,14 +95,14 @@ class CreateStructure:
     def create_subdirectories(self) -> None:
         for subdirectory, subsubdirs in self.subdirectories.items():
             sleep(self.short_time)
-            subdirectory_path = os.path.join(self.new_directory_path, subdirectory)
-            os.makedirs(subdirectory_path, exist_ok=True)
+            self.subdirectory_path = os.path.join(self.new_directory_path, subdirectory)
+            os.makedirs(self.subdirectory_path, exist_ok=True)
             print_create_subdirectory(subdirectory)
         
             for subsubdir in subsubdirs:
                 sleep(self.short_time)
-                subsubdirectory_path = os.path.join(subdirectory_path, subsubdir)
-                os.makedirs(subsubdirectory_path, exist_ok=True)
+                self.subsubdirectory_path = os.path.join(self.subdirectory_path, subsubdir)
+                os.makedirs(self.subsubdirectory_path, exist_ok=True)
                 print_create_subdirectory(subsubdir)
         
     def create_files(self, project_name: str) -> None:
@@ -144,7 +148,6 @@ class CreateStructure:
             self.save_requirements()
             print_libraries_installed_successfully()
             sleep(self.long_time)
-            
 
         except subprocess.CalledProcessError:
             shared_show_message_with_clear(print_library_installation_error)

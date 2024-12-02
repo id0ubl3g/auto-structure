@@ -1,5 +1,6 @@
 from src.utils.style_outputs import *
 
+from typing import Callable
 import argparse
 import sys
 import os
@@ -18,3 +19,11 @@ def parse_arguments() -> argparse.Namespace:
 
 def clear_screen() -> None:
     os.system('clear')
+
+def execute_before(method_to_execute: Callable[[], None]) -> Callable[[], None]:
+    def decorator(func: Callable[[], None]) -> Callable[[], None]:
+        def wrapper(self, *args, **kwargs) -> None:
+            method_to_execute(self)
+            return func(self, *args, **kwargs)
+        return wrapper
+    return decorator
