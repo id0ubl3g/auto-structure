@@ -1,6 +1,4 @@
-from typing import Dict, List
-
-Lightweight_API: Dict[str, List[str]] = {
+Lightweight_API = {
     'src': [
         'modules',  
         'utils/shared',
@@ -13,7 +11,7 @@ Lightweight_API: Dict[str, List[str]] = {
     'docs': []
 }
 
-Extended_API: Dict[str, List[str]]  = {
+Extended_API = {
     'app': [
         'controllers',
         'services',

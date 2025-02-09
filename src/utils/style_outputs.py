@@ -3,12 +3,11 @@ BOLD = "\033[1m"
 WHITE = "\033[37m"
 BLUE = "\033[34m"
 YELLOW = "\033[33m"
+BRIGHT_YELLOW = "\033[1;33m"
 RED = "\033[91m"
 CYAN = "\033[96m"
 ORANGE = "\033[38;5;208m"
 GREEN = "\033[92m"
-
-from typing import Any
 
 from time import sleep
 import sys
@@ -23,7 +22,7 @@ def print_welcome_message() -> None:
             {RESET}{CYAN}
     [*]__author__: {RESET}George Victor | @id0ubl3g{CYAN}
     [*]__github__: {RESET}github.com/id0ubl3g/auto-structure{CYAN}
-    [*]__usage__: {YELLOW}python3{RESET} run.py -n {CYAN}project_name{RESET}
+    [*]__usage__: {YELLOW}python3{RESET} run.py --project_name {CYAN}<project name>{RESET}
 ''')
     
 def print_create_root_directory(directory_name: str) -> None:
@@ -53,7 +52,7 @@ def print_structure_created(directory_name: str) -> None:
 def print_structure_exists(directory_name: str) -> None:
     print(f'\n{ORANGE}[i]{RESET} Project structure already exists at: {WHITE}{directory_name}{RESET}')
 
-def print_invalid_value(message: Any) -> None:
+def print_invalid_value(message: str) -> None:
     print(f'\n{ORANGE}[i]{RESET} Invalid value: {WHITE}{message}{RESET}')
 
 def print_error_unexpected() -> None:

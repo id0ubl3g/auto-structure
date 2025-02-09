@@ -84,10 +84,16 @@ For additional information on how to install Python on your system, visit the of
 To create a new project with Auto Structure, use the following command:
 
 ```sh
-python3 run.py -n project_name
+python3 run.py -n --project_name <project name>
 ```
 
-Replace project_name with the desired name of your project. Auto Structure will generate a pre-configured directory structure based on your choice.
+To display the help message with available options, use:
+
+```sh
+python3 run.py --help
+```
+
+Replace project name with the desired name of your project. Auto Structure will generate a pre-configured directory structure based on your choice.
 
 ## Available Project Structures
 
@@ -105,7 +111,7 @@ Auto Structure currently supports two base structures:
 This structure is suitable for lightweight APIs, ideal for microservices:
 
 ```plaintext
-└── project_name/
+└── <project name>/
     ├── src/
     │   ├── modules/
     │   ├── utils/
@@ -136,7 +142,7 @@ This structure is suitable for lightweight APIs, ideal for microservices:
 This structure is designed for more complex APIs with PostgreSQL database integration:
 
 ```plaintext
-└── project_name/
+└── <project name>/
     ├── app/
     │   ├── controllers/
     │   ├── services/
@@ -189,7 +195,7 @@ This structure is designed for more complex APIs with PostgreSQL database integr
 - **Activate Virtual Environment**: After creating the project, navigate to the project folder and activate the virtual environment:
 
     ```sh
-    cd project_name
+    cd <project name>
     source .venv/bin/activate
     ```
 

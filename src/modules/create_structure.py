@@ -5,7 +5,6 @@ from src.utils.system_utils import *
 from docs.write_gitignore import *
 from docs.base_structures import *
 
-from typing import Dict, List, Optional, Any
 from time import sleep
 import subprocess
 import tempfile
@@ -17,22 +16,22 @@ import os
 class CreateStructure:
     def __init__(self) -> None:
         self.root_directory: str = "projects"
-        self.subdirectories: Dict[str, List[str]] = {}
-        self.directory_not_exists: Optional[bool] = None
-        self.init_files: List[str] = ['README.md', '.gitignore', 'run.py']
-        self.libraries: List[str] = []
+        self.subdirectories: dict[str, list[str]] = {}
+        self.directory_not_exists: bool = None
+        self.init_files: list[str] = ['README.md', '.gitignore', 'run.py']
+        self.libraries: list[str] = []
 
         self.short_time: float = 0.5
         self.medium_time: float = 1.0
         self.long_time: float = 2.0
 
-        self.choice_structure: Optional[Any] = None
+        self.choice_structure: str = None
 
-        self.new_directory_path: Optional[str] = None
-        self.project_name: Optional[str] = None
+        self.new_directory_path: str = None
+        self.project_name: str = None
 
-        self.subsubdirectory_path: Optional[str] = None
-        self.subdirectory_path: Optional[str] = None
+        self.subsubdirectory_path: str = None
+        self.subdirectory_path: str = None
     
     def concatenate_paths(self, project_name: str) -> str:
         current_directory = shared_get_current_directory()
