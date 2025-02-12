@@ -1,5 +1,5 @@
-from docs.usage_auto_structure import *
-from src.utils.style_outputs import *
+from docs.usage_auto_structure import usage_auto_structure
+from src.utils.style_outputs import print_welcome_message
 
 from typing import Callable
 import argparse
