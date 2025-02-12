@@ -1,4 +1,4 @@
-from src.utils.style_outputs import *
+from config.collors_config import BRIGHT_YELLOW, CYAN, RESET, BOLD
 
 usage_auto_structure = f"""{CYAN}{BOLD}AutoStructure{RESET} - Flexible Flask API structures for any project.
 GitHub: {CYAN}github.com/id0ubl3g/auto-structure{RESET}
