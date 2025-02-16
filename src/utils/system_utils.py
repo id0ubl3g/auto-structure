@@ -2,7 +2,6 @@ from src.utils.style_outputs import print_welcome_message
 
 from docs.usage_auto_structure import usage_auto_structure
 
-
 from typing import Callable
 import argparse
 import sys

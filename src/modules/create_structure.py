@@ -7,13 +7,13 @@ from src.utils.style_outputs import (
     print_requirements_saved, print_library_installing, print_libraries_installed_successfully,
     print_library_installation_error, print_venv_information, print_create_environment,
     print_interrupted_message, print_directory_removed, print_error_unexpected,
-    loading_bar, print_success_message
+    loading_bar, print_success_message, print_exit_message
 )
 
 from docs.base_structures import Lightweight_API, Extended_API
 from docs.write_gitignore import GIT_IGNORE
 
-from config.collors_config import CYAN, RESET
+from config.colors_config import CYAN, RESET
 
 from time import sleep
 import subprocess
@@ -96,6 +96,11 @@ class CreateStructure:
                 self.subdirectories = Extended_API
                 self.libraries = ['flask', 'flask-cors', 'flasgger', 'gunicorn', 'psycopg2-binary', 'Flask-SQLAlchemy']
                 shared_show_message_with_clear()
+
+            case 0:
+                shared_show_message_with_clear(print_exit_message)
+                self.remove_directory(self.new_directory_path)
+                sys.exit(0)
             
             case _:
                 shared_show_message_with_clear(lambda: print_invalid_value(self.choice_structure))
