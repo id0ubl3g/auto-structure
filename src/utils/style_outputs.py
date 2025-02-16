@@ -1,4 +1,4 @@
-from config.collors_config import WHITE, YELLOW, ORANGE, RED, GREEN, CYAN, RESET, BOLD
+from config.colors_config import WHITE, YELLOW, ORANGE, RED, GREEN, CYAN, RESET, BOLD
 
 from time import sleep
 import sys
@@ -53,7 +53,11 @@ def print_project_options() -> None:
     print(f'\n{CYAN}[i]{RESET}{BOLD} Select a project structure to set up:{RESET}\n')
     print(f'{CYAN}[1]{RESET} Lightweight API: This structure is suitable for lightweight APIs, ideal for microservices')
     print(f'{CYAN}[2]{RESET} Extended API: This structure is designed for more complex APIs with PostgreSQL database integration')
-    
+    print(f'{CYAN}[0]{RESET} Exit: Exit the Auto Structure')
+
+def print_exit_message() -> None:
+    print(f'\n{ORANGE}[!]{RESET} Exiting gracefully. Thank you for using the Auto Structure!')
+
 def print_create_file(file_name: str) -> None:
     print(f'\n{CYAN}[+]{RESET} Creating file: {WHITE}{file_name}{RESET}')
 
