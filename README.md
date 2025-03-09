@@ -44,9 +44,11 @@ Auto Structure provides modular and extensible solutions for building scalable P
     │   │   ├── style_outputs.py
     │   │   └── system_utils.py
     ├── config/
-    │   └── path.config.py
+    │   ├── colors_config.py
+    │   └── path_config.py
     ├── docs/
     │   ├── base_structures.py
+    │   └── usage_auto_structure.py
     │   └── write_gitignore.py
     ├── .gitignore
     ├── LICENSE
