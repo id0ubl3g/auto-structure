@@ -86,7 +86,7 @@ For additional information on how to install Python on your system, visit the of
 To create a new project with Auto Structure, use the following command:
 
 ```sh
-python3 run.py -n --project_name <project name>
+python3 run.py --project_name <project name>
 ```
 
 To display the help message with available options, use:
@@ -182,7 +182,6 @@ This structure is designed for more complex APIs with PostgreSQL database integr
     - `routes`: Defines and organizes the API endpoints.
     - `models`: Manages database schemas and ORM logic.
     - `views/handlers`: Handles user interfaces or error responses.
-
 
 ## Get Ready, Activate, Code!
 

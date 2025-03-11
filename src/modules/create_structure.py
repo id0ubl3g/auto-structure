@@ -126,21 +126,18 @@ class CreateStructure:
             
             print_create_file(file)
 
-            if 'README.md' in create_file:
-                with open(create_file, 'w') as file:
-                    file.write(f'# {project_name}')
+            match create_file:
+                case 'README.md':
+                    with open(create_file, 'w') as file:
+                        file.write(f'# {project_name}')
+                
+                case '.gitignore':
+                    with open(create_file, 'w') as file:
+                        file.write(GIT_IGNORE)
 
-            elif '.gitignore' in create_file:
-                with open(create_file, 'w') as file:
-                    file.write(GIT_IGNORE)
-
-            elif 'run.py' in create_file:
-                with open(create_file, 'w') as file:
-                    file.write('')
-
-            else:
-                with open(create_file, 'w') as file:
-                    file.write('')
+                case _:
+                    with open(create_file, 'w') as file:
+                        file.write('')
         
     def save_requirements(self) -> None:
         sleep(self.short_time)
