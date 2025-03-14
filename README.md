@@ -14,7 +14,7 @@
 - [Overview](#overview)
 - [Project Structure](#project-structure)
 - [Prerequisites](#prerequisites)  
-    - [Steps to Set Up `venv`](#steps-to-set-up-venv)  
+    - [Setting Up `venv`](#setting-up-venv)  
 - [Getting Started](#getting-started)
 - [Available Project Structures](#available-project-structures)
 - [Base Structures](#base-structures)  
@@ -60,7 +60,7 @@ Auto Structure provides modular and extensible solutions for building scalable P
 
 Before using Auto Structure, ensure that Python's virtual environment (venv) is set up on your system.
 
-### Steps to Set Up `venv`
+### Setting Up `venv`
 To install the `python3-venv` package, run the following command:
 
 ```sh
